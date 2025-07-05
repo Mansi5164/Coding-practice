@@ -1,3 +1,4 @@
+package playlistProblem;
 import java.util.Scanner;
 
 public class Inverse_of_a_number {
