@@ -1,4 +1,4 @@
-package playlistProblem;
+package basicProblems;
 import java.util.Scanner;
 
 public class prime_factorization {
