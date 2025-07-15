@@ -84,6 +84,37 @@ public class basics {
             System.out.println();
         }
     }
+
+    public static void levelOrderZigZag(Node root){
+        Stack<Node> mainStack = new Stack<>();
+        Stack<Node> childStack = new Stack<>();
+        mainStack.push(root);
+        int level=1;
+        while(mainStack.size() > 0){
+            root = mainStack.pop();
+            System.out.print(root.data+" ");
+            
+            if(level % 2==1){
+                for(int i=0;i<root.children.size() ;i++){
+                    Node child = root.children.get(i);
+                    childStack.push(child);
+                }
+            }
+            else{
+                for(int i=root.children.size()-1;i>=0;i--){
+                    Node child = root.children.get(i);
+                    childStack.push(child);
+                }
+            }
+            if(mainStack.size()==0){
+                mainStack = childStack;
+                childStack = new Stack<>();
+                level++;
+            }
+            // System.out.println();
+        }
+    }
+
     public static void traversal(Node root){
         //Euler's left, on the way deep in the recusion , node's pre area
         System.out.println("Node pre "+root.data);
@@ -127,6 +158,7 @@ public class basics {
         // System.out.println("height : "+ height(root));
         // traversal(root);
         // levelOrderTraversal(root);
-        levelOrderTraversalLineByLine(root);
+        // levelOrderTraversalLineByLine(root);
+        levelOrderZigZag(root);
     }
 }
