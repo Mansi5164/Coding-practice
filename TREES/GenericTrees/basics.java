@@ -9,6 +9,37 @@ public class basics {
         int data;
         int size;
         ArrayList<Node> children = new ArrayList<>();
+        Node(){
+
+        }
+        Node(int data){
+            this.data = data;
+        }
+    }
+    private static class Pair{
+        int level;
+        Node node;
+        Pair(Node node , int level){
+            this.level = level;
+            this.node = node;
+        }
+    }
+    public static void levelOrderLineWiseApproach4(Node root){
+        Queue<Pair> q = new ArrayDeque<>();
+        q.add(new Pair(root, 1));
+        int level = 1;
+        while(q.size() > 0){
+            Pair p = q.remove();
+            if(p.level > level){
+                level = p.level;
+                System.out.println();
+            }
+            System.out.println(p.node.data);
+            for(Node child : p.node.children){
+                Pair childPair = new Pair(child, p.level+1);
+                q.add(childPair);
+            }
+        }
     }
 
     public static int size(Node root){
@@ -85,6 +116,45 @@ public class basics {
         }
     }
 
+    public static void levelOrderLineWiseApproach2(Node root)
+    {
+        Queue<Node> q = new ArrayDeque<>();
+        q.add(root);
+        q.add(new Node(-1));
+        while(q.size()>0){
+            root = q.remove();
+            if(root.data != -1){
+                System.out.print(root.data+ " ");
+                for(Node child : root.children){
+                    q.add(child);
+                }
+            }
+            else{
+                if(q.size() > 0){
+                    q.add(new Node(-1));
+                    System.out.println();
+                } 
+            }
+        }
+    }
+    public static void levelOrderLineWiseApproach3(Node root)
+    {
+        Queue<Node> q = new ArrayDeque<>();
+        q.add(root);
+
+        while(q.size()>0){
+            int length = q.size();
+            for(int i=0;i<length;i++){
+                root = q.remove();
+                System.out.print(root.data+" ");
+                for(Node child : root.children){
+                    q.add(child);
+                }
+            }
+            System.out.println();
+        }
+    }
+
     public static void levelOrderZigZag(Node root){
         Stack<Node> mainStack = new Stack<>();
         Stack<Node> childStack = new Stack<>();
@@ -111,7 +181,6 @@ public class basics {
                 childStack = new Stack<>();
                 level++;
             }
-            // System.out.println();
         }
     }
 
@@ -159,6 +228,7 @@ public class basics {
         // traversal(root);
         // levelOrderTraversal(root);
         // levelOrderTraversalLineByLine(root);
-        levelOrderZigZag(root);
+        // levelOrderZigZag(root);
+        levelOrderLineWiseApproach3(root);
     }
 }
